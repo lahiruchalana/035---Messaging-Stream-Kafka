@@ -1,12 +1,19 @@
 spring:
   kafka:
-    bootstrap-servers: DESKTOP-2M3J5DL:9092
+    bootstrap-servers: DESKTOP-2M3J5DL:9092 # Kafka port
 
   datasource:
     url: jdbc:mysql://localhost:3306/kafka_message_db?createDatabaseIfNotExist=true&useSSL=false
     username: root
     password: 1111
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: com.mysql.cj.jdbc.Driver # MySQL database config
 
 server:
   port: 8099
+
+#  servlet:
+#    context-path: /api # Base URL for REST endpoints
+#
+#endpoints:
+#  message: /message # Endpoint for message resource
+#  notification: /products # Endpoint for notification resource
