@@ -1,6 +1,6 @@
 spring:
   kafka:
-    bootstrap-servers: localhost:9099
+    bootstrap-servers: DESKTOP-2M3J5DL:9092
 
   datasource:
     url: jdbc:mysql://localhost:3306/kafka_message_db?createDatabaseIfNotExist=true&useSSL=false
