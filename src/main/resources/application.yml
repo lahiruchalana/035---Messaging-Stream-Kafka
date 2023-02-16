@@ -1,0 +1,12 @@
+spring:
+  kafka:
+    bootstrap-servers: localhost:9099
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/kafka_message_db?createDatabaseIfNotExist=true&useSSL=false
+    username: root
+    password: 1111
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+server:
+  port: 8099
