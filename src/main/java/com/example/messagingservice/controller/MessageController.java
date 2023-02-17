@@ -1,5 +1,6 @@
 package com.example.messagingservice.controller;
 
+import com.example.messagingservice.business.MessageService;
 import com.example.messagingservice.dto.MessageDTO;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,16 +12,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/message")
 public class MessageController {
 
-    private KafkaTemplate<String, String> kafkaTemplate;
+    private MessageService messageService;
 
-    public MessageController(KafkaTemplate<String, String> kafkaTemplate) {
-        this.kafkaTemplate = kafkaTemplate;
+    public MessageController(MessageService messageService) {
+        this.messageService = messageService;
     }
 
     @PostMapping("/send")
-    public void publish(
+    public void sendMessage(
             @RequestBody MessageDTO messageDTO
             ) {
-        kafkaTemplate.send("message", "Message: " + messageDTO.getMessage());
+        messageService.sendMessage(messageDTO);
     }
+
 }

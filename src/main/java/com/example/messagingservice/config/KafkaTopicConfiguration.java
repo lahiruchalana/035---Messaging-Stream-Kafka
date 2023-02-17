@@ -8,10 +8,12 @@ import org.springframework.kafka.config.TopicBuilder;
 @Configuration
 public class KafkaTopicConfiguration {
 
+    /** Able to create topics here **/
+
     @Bean
     public NewTopic messageTopic() {
         return TopicBuilder
-                .name("message")
+                .name("messageTopic")
                 .build();
     }
 
