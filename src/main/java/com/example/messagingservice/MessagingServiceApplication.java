@@ -17,7 +17,7 @@ public class MessagingServiceApplication {
     CommandLineRunner commandLineRunner(KafkaTemplate<String, String> kafkaTemplate) {
         return args -> {
             for (int i = 0; i < 5; i++) {
-                kafkaTemplate.send("message", "Hey Kafka is working here bro!!! ");
+                kafkaTemplate.send("message", "Hey Kafka is working here!!! ");
             }
         };
     }
