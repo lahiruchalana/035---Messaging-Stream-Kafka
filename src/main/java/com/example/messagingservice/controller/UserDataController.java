@@ -1,6 +1,6 @@
 package com.example.messagingservice.controller;
 
-import com.example.messagingservice.business.MessageService;
+import com.example.messagingservice.business.UserDataService;
 import com.example.messagingservice.controller.controllconfig.ResponseHandler;
 import com.example.messagingservice.dto.MessageDTO;
 import lombok.extern.slf4j.Slf4j;
@@ -12,29 +12,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/message")
+@RequestMapping("api/user/data")
 @Slf4j
-public class MessageController {
+public class UserDataController {
 
-    private MessageService messageService;
+    private final UserDataService userDataService;
 
-    public MessageController(MessageService messageService) {
-        this.messageService = messageService;
+    public UserDataController(UserDataService userDataService) {
+        this.userDataService = userDataService;
     }
 
     @PostMapping("/send")
-    public ResponseEntity<Object> sendMessage(
+    public ResponseEntity<Object> sendUserData(
             @RequestBody MessageDTO messageDTO
-            ) {
-        log.info ("LOG :: MessageController sendMessage()");
+    ) {
+        log.info ("LOG :: UserDataController sendUserData()");
         try {
-            log.info ("LOG :: MessageController sendMessage() inside try");
+            log.info ("LOG :: UserDataController sendUserData() inside try");
             MessageDTO messageDTOSaved = messageService.sendMessage(messageDTO);
             return ResponseHandler.responseBuilder("Success", "2000", HttpStatus.OK, messageDTOSaved);
         } catch (Exception e) {
-            log.warn("LOG::Inside the MessageController sendMessage() Exception :: " + e.getMessage());
+            log.warn("LOG::Inside the UserDataController sendUserData() Exception :: " + e.getMessage());
             return ResponseHandler.responseBuilder("Fail", "5000", HttpStatus.INTERNAL_SERVER_ERROR, null);
         }
     }
-
 }
