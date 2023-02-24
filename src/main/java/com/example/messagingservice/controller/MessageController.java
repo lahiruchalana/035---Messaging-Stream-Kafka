@@ -1,11 +1,10 @@
 package com.example.messagingservice.controller;
 
 import com.example.messagingservice.business.MessageService;
-import com.example.messagingservice.controller.controllconfig.ResponseHandler;
 import com.example.messagingservice.dto.MessageDTO;
+import com.example.messagingservice.dto.response.ServiceResponseDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,17 +22,22 @@ public class MessageController {
     }
 
     @PostMapping("/send")
-    public ResponseEntity<Object> sendMessage(
+    public ServiceResponseDTO sendMessage(
             @RequestBody MessageDTO messageDTO
             ) {
         log.info ("LOG :: MessageController sendMessage()");
         try {
             log.info ("LOG :: MessageController sendMessage() inside try");
-            MessageDTO messageDTOSaved = messageService.sendMessage(messageDTO);
-            return ResponseHandler.responseBuilder("Success", "2000", HttpStatus.OK, messageDTOSaved);
+            return messageService.sendMessage(messageDTO);
         } catch (Exception e) {
             log.warn("LOG::Inside the MessageController sendMessage() Exception :: " + e.getMessage());
-            return ResponseHandler.responseBuilder("Fail", "5000", HttpStatus.INTERNAL_SERVER_ERROR, null);
+            ServiceResponseDTO serviceResponseDTO = new ServiceResponseDTO();
+            serviceResponseDTO.setError(e);
+            serviceResponseDTO.setMessage("Fail");
+            serviceResponseDTO.setCode("500");
+            serviceResponseDTO.setHttpStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            serviceResponseDTO.setDescription(e.getMessage());
+            return serviceResponseDTO;
         }
     }
 
